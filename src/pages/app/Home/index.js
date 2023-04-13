@@ -6,11 +6,14 @@ import { ScrollView } from "react-native-gesture-handler"
 import Card from "../../../components/Card"
 import api from "../../../services/api"
 import { format } from "date-fns"
+import { TouchableHighlight } from "react-native"
+import { TouchableOpacity } from "react-native"
 
 export default function Home() {
 	const [listBalance, setListBalance] = useState([])
 
 	useEffect(() => {
+		let isMounted = true
 		async function getBalance() {
 			let dateFormatted = format(new Date(), "dd/MM/yyyy")
 
@@ -28,6 +31,10 @@ export default function Home() {
 				})
 		}
 		getBalance()
+
+		return () => {
+			isMounted = false
+		}
 	}, [])
 
 	return (
@@ -42,7 +49,9 @@ export default function Home() {
 				keyExtractor={(item) => item.tag}
 				renderItem={({ item }) => <Card tag={item.tag} value={item.saldo} />}
 			/>
-			<Text>Teste</Text>
+			<TouchableOpacity>
+				<Text>Últimas movimentações</Text>
+			</TouchableOpacity>
 		</Container>
 	)
 }
