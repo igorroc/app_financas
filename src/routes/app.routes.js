@@ -9,7 +9,21 @@ const AppDrawer = createDrawerNavigator()
 
 export default function AppRoutes() {
 	return (
-		<AppDrawer.Navigator>
+		<AppDrawer.Navigator
+			screenOptions={{
+				// headerShown: false,
+
+				drawerStyle: {
+					paddingTop: 20,
+				},
+
+				drawerActiveBackgroundColor: "#3b3dbf",
+				drawerActiveTintColor: "#fff",
+
+				drawerInactiveBackgroundColor: "#3b3dbf20",
+				drawerInactiveTintColor: "#232323",
+			}}
+		>
 			<AppDrawer.Screen
 				name="Home"
 				component={Home}
