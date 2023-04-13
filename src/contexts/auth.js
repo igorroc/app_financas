@@ -87,8 +87,13 @@ export function AuthProvider({ children }) {
 		return { status: "success", user: APIResponse.user }
 	}
 
+	async function logOut() {
+		setUser(null)
+		await AsyncStorage.removeItem("@RNAuth:user")
+	}
+
 	return (
-		<AuthContext.Provider value={{ signed: !!user, user, logIn, signUp }}>
+		<AuthContext.Provider value={{ signed: !!user, user, logIn, signUp, logOut }}>
 			{children}
 		</AuthContext.Provider>
 	)

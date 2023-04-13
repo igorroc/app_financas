@@ -1,25 +1,31 @@
 import React, { useContext } from "react"
 import { Text } from "react-native"
 import { View } from "react-native"
-import { Container, SignOutButton } from "./styles"
+import { Container, SignOutButton, CustomLink, CustomLinkText } from "./styles"
 import { AuthContext } from "../../../contexts/auth"
-import { Link } from "@react-navigation/native"
+import { Link, useNavigation } from "@react-navigation/native"
 
 export default function Perfil() {
-	const { user } = useContext(AuthContext)
+	const { user, logOut } = useContext(AuthContext)
+
+	const navigation = useNavigation()
 
 	function handleSignOut() {
-		console.log("Sair")
+		logOut()
 	}
-    
+
+	function goToHome() {
+		navigation.navigate("Home")
+	}
+
 	return (
 		<Container>
 			<Text>Bem vindo(a) de volta</Text>
 			<Text>{user.name}</Text>
-			<Link to="/Home">
-				<Text>Home</Text>
-			</Link>
-			<SignOutButton onClick={handleSignOut}>
+			<CustomLink onPress={goToHome}>
+				<CustomLinkText>Home</CustomLinkText>
+			</CustomLink>
+			<SignOutButton onPress={handleSignOut}>
 				<Text>Sair</Text>
 			</SignOutButton>
 		</Container>

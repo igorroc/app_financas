@@ -16,3 +16,17 @@ export const SignOutButton = styled.TouchableOpacity`
 	justify-content: center;
 	align-items: center;
 `
+
+export const CustomLink = styled.TouchableOpacity`
+	width: 90%;
+	margin-top: 20px;
+	padding: 10px;
+	background: #3b3dbf;
+	border-radius: 7px;
+	justify-content: center;
+	align-items: center;
+`
+
+export const CustomLinkText = styled.Text`
+	color: #fff;
+`
