@@ -4,6 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer"
 
 import Home from "../pages/app/Home"
 import Perfil from "../pages/app/Perfil"
+import Registrar from "../pages/app/Registrar"
 
 const AppDrawer = createDrawerNavigator()
 
@@ -29,6 +30,13 @@ export default function AppRoutes() {
 				component={Home}
 				options={{
 					headerTitle: "Minhas movimentações",
+				}}
+			/>
+			<AppDrawer.Screen
+				name="Registrar"
+				component={Registrar}
+				options={{
+					headerTitle: "Registrando movimentações",
 				}}
 			/>
 			<AppDrawer.Screen
