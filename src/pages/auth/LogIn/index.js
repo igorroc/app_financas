@@ -1,45 +1,41 @@
-import { Container, AreaInput, Input, SubmitButton, SubmitText, ErrorText } from "./styles"
+import { Text } from "react-native"
+
+import LogoImg from "../../../assets/Logo.png"
+import { Container, Logo, AreaInput, Input, SubmitButton, SubmitText, ErrorText } from "./styles"
 import { useState, useContext } from "react"
+import { Link } from "@react-navigation/native"
 
-import { AuthContext } from "../../contexts/auth"
-
-import { useNavigation } from "@react-navigation/native"
+import { AuthContext } from "../../../contexts/auth"
 import { ActivityIndicator } from "react-native"
 
-export default function SignUp() {
-	const [name, setName] = useState("")
+import { useNavigation } from "@react-navigation/native"
+
+export default function LogIn() {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
 
-	const { signUp } = useContext(AuthContext)
+	const { logIn } = useContext(AuthContext)
 
 	const navigation = useNavigation()
 
-	function handleSignUp() {
+	async function handleLogin() {
 		setLoading(true)
-		const response = signUp(name, email, password)
-		console.log(response)
-		if (response._j?.status == "error") {
-			setError(response._j.error)
+		const response = await logIn(email, password)
+		if (response.status == "error") {
+			setError(response.error)
 		} else {
 			setError("")
-			navigation.goBack()
 		}
+
 		setLoading(false)
 	}
 
 	return (
 		<Container>
+			<Logo source={LogoImg} />
 			<AreaInput>
-				<Input
-					placeholder="Seu nome"
-					autoCorrect={false}
-					value={name}
-					onChangeText={(text) => setName(text)}
-				/>
-
 				<Input
 					placeholder="Email"
 					autoCorrect={false}
@@ -59,10 +55,18 @@ export default function SignUp() {
 
 				{error != "" && <ErrorText>{error}</ErrorText>}
 
-				<SubmitButton onPress={handleSignUp} disabled={loading}>
-					{loading ? <ActivityIndicator /> : <SubmitText>Cadastrar</SubmitText>}
+				<SubmitButton onPress={handleLogin}>
+					{loading ? <ActivityIndicator /> : <SubmitText>Acessar</SubmitText>}
 				</SubmitButton>
 			</AreaInput>
+			<Link
+				to="/SignUp"
+				style={{
+					marginTop: 20,
+				}}
+			>
+				<Text>Criar uma conta gratuita</Text>
+			</Link>
 		</Container>
 	)
 }

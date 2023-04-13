@@ -2,8 +2,8 @@ import React from "react"
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import LogIn from "../pages/LogIn"
-import SignUp from "../pages/SignUp"
+import LogIn from "../pages/auth/LogIn"
+import SignUp from "../pages/auth/SignUp"
 
 const AuthStack = createNativeStackNavigator()
 

@@ -1,9 +1,16 @@
+import { useContext } from "react"
+
+import { AuthContext } from "../contexts/auth"
+
 import { View, ActivityIndicator } from "react-native"
+
 import AuthRoutes from "./auth.routes"
+import AppRoutes from "./app.routes"
 
 export default function Routes() {
 	const loading = false
-	const signed = false
+	
+	const { signed } = useContext(AuthContext)
 
-	return signed ? <View></View> : <AuthRoutes />
+	return signed ? <AppRoutes /> : <AuthRoutes />
 }

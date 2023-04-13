@@ -5,9 +5,7 @@ import api from "../services/api"
 export const AuthContext = createContext({})
 
 export function AuthProvider({ children }) {
-	const [user, setUser] = useState({
-		name: "Igor",
-	})
+	const [user, setUser] = useState(null)
 
 	async function logIn(email, password) {
 		let APIResponse = {}
@@ -28,10 +26,12 @@ export function AuthProvider({ children }) {
 				APIResponse.error = error
 			})
 
-		console.log("[TESTE]", APIResponse)
 		if (APIResponse.error) {
 			return { status: "error", error: "Email ou senha incorretos" }
 		}
+
+		setUser(APIResponse.user)
+		api.defaults.headers["Authorization"] = `Bearer ${APIResponse.user.token}`
 
 		return { status: "success", user: APIResponse.user }
 	}
@@ -63,5 +63,9 @@ export function AuthProvider({ children }) {
 		return { status: "success", user: APIResponse.user }
 	}
 
-	return <AuthContext.Provider value={{ user, logIn, signUp }}>{children}</AuthContext.Provider>
+	return (
+		<AuthContext.Provider value={{ signed: !!user, user, logIn, signUp }}>
+			{children}
+		</AuthContext.Provider>
+	)
 }
