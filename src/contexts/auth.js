@@ -1,11 +1,34 @@
 import axios from "axios"
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import api from "../services/api"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const AuthContext = createContext({})
 
 export function AuthProvider({ children }) {
 	const [user, setUser] = useState(null)
+
+	useEffect(() => {
+		async function loadStorageData() {
+			const loggedUser = await AsyncStorage.getItem("@RNAuth:user")
+
+			if (loggedUser) {
+				let parsedUser = JSON.parse(loggedUser)
+				await api
+					.get("/me", {
+						headers: {
+							Authorization: `Bearer ${parsedUser.token}`,
+						},
+					})
+					.then((res) => {
+						setUser(res.data)
+						api.defaults.headers["Authorization"] = `Bearer ${parsedUser.token}`
+					})
+			}
+		}
+
+		loadStorageData()
+	}, [])
 
 	async function logIn(email, password) {
 		let APIResponse = {}
@@ -32,6 +55,7 @@ export function AuthProvider({ children }) {
 
 		setUser(APIResponse.user)
 		api.defaults.headers["Authorization"] = `Bearer ${APIResponse.user.token}`
+		await AsyncStorage.setItem("@RNAuth:user", JSON.stringify(APIResponse.user))
 
 		return { status: "success", user: APIResponse.user }
 	}
