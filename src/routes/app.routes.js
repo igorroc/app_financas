@@ -5,15 +5,15 @@ import { createDrawerNavigator } from "@react-navigation/drawer"
 import Home from "../pages/app/Home"
 import Perfil from "../pages/app/Perfil"
 import Registrar from "../pages/app/Registrar"
+import CustomDrawer from "../components/CustomDrawer"
 
 const AppDrawer = createDrawerNavigator()
 
 export default function AppRoutes() {
 	return (
 		<AppDrawer.Navigator
+			drawerContent={(props) => <CustomDrawer {...props} />}
 			screenOptions={{
-				// headerShown: false,
-
 				drawerStyle: {
 					paddingTop: 20,
 				},

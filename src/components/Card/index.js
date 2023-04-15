@@ -1,5 +1,6 @@
 import React from "react"
 import { CardContainer, Title, Value } from "./styles"
+import { formatNumberToCurrency } from "../../utils/formatNumber"
 
 export default function Card(props) {
 	const title = {
@@ -17,7 +18,7 @@ export default function Card(props) {
 	return (
 		<CardContainer $color={color[props.tag]}>
 			<Title>{title[props.tag]}</Title>
-			<Value>R$ {props.value.toFixed(2)}</Value>
+			<Value>{formatNumberToCurrency(props.value)}</Value>
 		</CardContainer>
 	)
 }

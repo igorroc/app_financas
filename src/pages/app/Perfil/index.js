@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import { Text } from "react-native"
 import { View } from "react-native"
-import { Container, SignOutButton, CustomLink, CustomLinkText } from "./styles"
+import { Container, SignOutButton, CustomLink, CustomLinkText, Name } from "./styles"
 import { AuthContext } from "../../../contexts/auth"
 import { Link, useNavigation } from "@react-navigation/native"
 
@@ -21,7 +21,7 @@ export default function Perfil() {
 	return (
 		<Container>
 			<Text>Bem vindo(a) de volta</Text>
-			<Text>{user.name}</Text>
+			<Name>{user.name}</Name>
 			<CustomLink onPress={goToHome}>
 				<CustomLinkText>Home</CustomLinkText>
 			</CustomLink>

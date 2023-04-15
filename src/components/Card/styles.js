@@ -12,10 +12,10 @@ export const CardContainer = styled.View`
 
 export const Title = styled.Text`
 	font-size: 16px;
-    color: #fff;
-    `
+	color: #fff;
+`
 
 export const Value = styled.Text`
 	font-size: 30px;
-    color: #fff;
+	color: #fff;
 `

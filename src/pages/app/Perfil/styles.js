@@ -6,6 +6,11 @@ export const Container = styled.View`
 	justify-content: center;
 `
 
+export const Name = styled.Text`
+	font-size: 20px;
+	font-weight: bold;
+`
+
 export const SignOutButton = styled.TouchableOpacity`
 	width: 90%;
 	margin-top: 20px;
