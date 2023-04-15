@@ -20,3 +20,9 @@ export const CalendarButton = styled.TouchableOpacity`
 	align-items: center;
 	gap: 10px;
 `
+
+export const Warning = styled.Text`
+	font-size: 16px;
+	color: #aaa;
+	padding: 10px;
+`

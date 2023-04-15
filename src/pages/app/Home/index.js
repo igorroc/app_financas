@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Alert, Modal, RefreshControl, Text } from "react-native"
 import { View } from "react-native"
-import { Container, CardList, HistoryList, CalendarButton } from "./styles"
+import { Container, CardList, HistoryList, CalendarButton, Warning } from "./styles"
 import { ScrollView } from "react-native-gesture-handler"
 import Card from "../../../components/Card"
 import api from "../../../services/api"
@@ -121,11 +121,19 @@ export default function Home() {
 				<Text>Últimas movimentações</Text>
 			</CalendarButton>
 
-			<HistoryList
-				data={history}
-				keyExtractor={(item) => item.id}
-				renderItem={({ item }) => <HistoryItem item={item} longPress={handleLongPress} />}
-			/>
+			{history.length === 0 ? (
+				<Warning>
+					Você não teve movimentações no dia {format(currentDate, "dd/MM/yyyy")}
+				</Warning>
+			) : (
+				<HistoryList
+					data={history}
+					keyExtractor={(item) => item.id}
+					renderItem={({ item }) => (
+						<HistoryItem item={item} longPress={handleLongPress} />
+					)}
+				/>
+			)}
 
 			<Modal visible={showModal} animationType="slide" transparent={true}>
 				<CalendarModal
